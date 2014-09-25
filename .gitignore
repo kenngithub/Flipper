@@ -1,0 +1,9 @@
+# use glob syntax
+syntax: glob
+
+packages
+[Bb]in
+[Dd]ebug*/
+obj/
+[Rr]elease*/
+
