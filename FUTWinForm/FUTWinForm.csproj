@@ -115,10 +115,6 @@
       <Project>{33eafdfb-bd17-4649-8d5c-1126359da3c3}</Project>
       <Name>FUTFlipper</Name>
     </ProjectReference>
-    <ProjectReference Include="..\UltimateTeam.Toolkit\UltimateTeam.Toolkit.csproj">
-      <Project>{a761d7bc-c308-4ac5-8e9d-dfb02cafe9cc}</Project>
-      <Name>UltimateTeam.Toolkit</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />

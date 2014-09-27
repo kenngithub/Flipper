@@ -351,7 +351,6 @@ namespace FUTFlipper
             {
                 RecordExceptionEvent();
                 Log.Info("There was a problem searching, try again");
-                HumanDelay();
                 return false;
             }
 
@@ -371,7 +370,6 @@ namespace FUTFlipper
                 var bidAble = searchResponse.AuctionInfo
                     .Where(item => item.ItemData.RareFlag == 0 && item.ItemData.DiscardValue.HasValue && item.Expires < 4200 && BiddableBasedOnRating(item.ItemData.Rating));
 
-                //HumanDelay();
                 Bid(bidAble);
             }
             else
@@ -379,9 +377,9 @@ namespace FUTFlipper
                 LastSearchCount = 0;
                 LastSearchFirstExpiry = LastSearchLastExpiry = Int32.MaxValue;
                 Log.Info("{0} Count: 0".Args(Credits));
-                HumanDelay();
             }
 
+            HumanDelay();
             return true;
         }
 
@@ -409,10 +407,12 @@ namespace FUTFlipper
                     try
                     {
                         var tradeStatusResult = await futClient.GetTradeStatusAsync(new List<long>() { auctionInfo.TradeId });
+                        HumanDelay();
                         var tradeStatus = tradeStatusResult.AuctionInfo.Where(t => t.TradeId == auctionInfo.TradeId);
                         if (tradeStatus.Any() && tradeStatus.First().CurrentBid < amountIWantToBid)
                         {
                             await futClient.PlaceBidAsync(auctionInfo, amountIWantToBid);
+                            HumanDelay();
                             Credits -= amountIWantToBid;
                             Log.Info("    Bid complete");
                             searchWatchListOverride = true;
@@ -436,9 +436,7 @@ namespace FUTFlipper
                     {
                         RecordExceptionEvent();
                         Log.Info("    Bid failed");
-                    }
-                    
-                    //HumanDelay();
+                    }                   
                 }
             }
         }
@@ -586,7 +584,7 @@ namespace FUTFlipper
                         IEnumerable<Task<ListAuctionResponse>> listAuctionTasks = expired.Select(e =>
                         {
                             Log.Info("ReAuctioning {0} for starting {1}, buynow {2}".Args(e.TradeId, e.StartingBid, e.BuyNowPrice));
-
+                            HumanDelay();
                             return futClient.ListAuctionAsync(new AuctionDetails(e.ItemData.Id, AuctionDuration.OneHour, e.StartingBid, e.BuyNowPrice)); // use old BuyNow and StartingBid
                         });
 
@@ -621,6 +619,7 @@ namespace FUTFlipper
                 RecordExceptionEvent();
                 Log.Warn("Oops No response when Searching for TradePile.");
             }
+            HumanDelay();
         }
 
         public async Task UnnassignedPile()
@@ -663,11 +662,13 @@ namespace FUTFlipper
                 RecordExceptionEvent();
                 Log.Warn("Oops No response when Searching for UnnassignedPile.");
             }
+
+            HumanDelay();
         }
 
         private void HumanDelay(int weight = 1)
         {
-            System.Threading.Thread.Sleep(random.Next(1000, 1400) * weight);
+            System.Threading.Thread.Sleep(random.Next(1500, 2000) * weight);
         }
 
         private uint BidAmountJustUnder(uint value)
