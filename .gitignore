@@ -6,4 +6,5 @@ packages
 [Dd]ebug*/
 obj/
 [Rr]elease*/
-
+*.suo
+*.tss
