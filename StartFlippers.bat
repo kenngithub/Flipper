@@ -1,0 +1,10 @@
+start FUTConsole.exe Ken7
+start FUTConsole.exe Ken8
+start FUTConsole.exe Ken9
+start FUTConsole.exe Ken10
+start FUTConsole.exe xswq01
+start FUTConsole.exe xswq02
+start FUTConsole.exe xswq03
+start FUTConsole.exe xswq04
+start FUTConsole.exe xswq05
+start FUTConsole.exe xswq06
