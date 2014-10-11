@@ -229,7 +229,7 @@ namespace FUTFlipper
                 }
 
                 
-                if (!SlowDay && Page < 50)
+                if (!SlowDay && Page < 100)
                 {
                     slowDayConsectutiveCount++;
                     if (slowDayConsectutiveCount >= 10)
@@ -241,7 +241,7 @@ namespace FUTFlipper
                 {
                     slowDayConsectutiveCount = 0;
                 }
-                if (SlowDay && Page > 80)
+                if (SlowDay && Page > 130)
                 {
                     normalDayConsectutiveCount++;
                     if (normalDayConsectutiveCount >= 10)
@@ -287,7 +287,7 @@ namespace FUTFlipper
         }
 
         public async void SearchToTransferMoney(int buyAmount)
-        {
+        {/*
             var searchParameters = new StaffSearchParameters
             {
                 Page = 1,
@@ -295,17 +295,17 @@ namespace FUTFlipper
                 MaxBuy = (uint) buyAmount,
                 MinBuy = (uint) buyAmount - 500,
                 PageSize = (byte)(pageSize - 1)
-            };
+            };*/
 
-            /*var searchParameters = new ClubInfoSearchParameters
+            var searchParameters = new ClubInfoSearchParameters
             {
-                ClubInfoType = ClubInfoType.Kit,
+                ClubInfoType = ClubInfoType.Badge,
                 Page = 1,
                 Level = Level.Gold,
                 MaxBuy = (uint)buyAmount,
                 MinBuy = (uint)buyAmount - 500,
                 PageSize = (byte)(pageSize - 1)
-            };*/
+            };
 
             AuctionResponse searchResponse = await futClient.SearchAsync(searchParameters);
             AuctionInfo item =  searchResponse.AuctionInfo.Where(a => a.SellerName == "Shin Kickers").FirstOrDefault();
