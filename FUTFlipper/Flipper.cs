@@ -99,8 +99,10 @@ namespace FUTFlipper
 
                     if (TooManyExceptions())
                     {
-                        Log.Error("Too Many Exceptions: {0} in {1} seconds".Args(ExceptionsEventDuringWindow, (DateTime.UtcNow - ExceptionEventWindowStart).TotalSeconds));
-                        return;
+                        Log.Error("Too Many Exceptions: {0} in {1} seconds. Have a break for 30 mins".Args(ExceptionsEventDuringWindow, (DateTime.UtcNow - ExceptionEventWindowStart).TotalSeconds));
+                        System.Threading.Thread.Sleep(30 * 60000);
+                        await Login();
+                        SessionExpired = false;
                     }
 
                     System.Threading.Thread.Sleep((new Random()).Next(55000, 65000));
@@ -299,9 +301,8 @@ namespace FUTFlipper
 
             var searchParameters = new ClubInfoSearchParameters
             {
-                ClubInfoType = ClubInfoType.Badge,
+                ClubInfoType = ClubInfoType.Kit,
                 Page = 1,
-                Level = Level.Gold,
                 MaxBuy = (uint)buyAmount,
                 MinBuy = (uint)buyAmount - 500,
                 PageSize = (byte)(pageSize - 1)
@@ -434,7 +435,7 @@ namespace FUTFlipper
                     }
                     catch
                     {
-                        RecordExceptionEvent();
+                        //RecordExceptionEvent();
                         Log.Info("    Bid failed");
                     }                   
                 }
