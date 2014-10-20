@@ -44,6 +44,7 @@ namespace FUTFlipper
         public bool SessionExpired { get; set; }
         public bool SlowDay { get; set; }
         public bool CouldNotLogin { get; set; }
+        public bool LoggedIn { get; set; }
 
         private SpreadsheetsService gDocsService;
         private ListFeed listFeed;
@@ -69,6 +70,7 @@ namespace FUTFlipper
             SessionExpired = false;
             Page = 1;
             SlowDay = false;
+            LoggedIn = false;
 
             gDocsService = new SpreadsheetsService("Ken Nguyen gDoc Service");
             gDocsService.setUserCredentials("nguyen.kirk@gmail.com", "ilovedaddy");
@@ -130,10 +132,12 @@ namespace FUTFlipper
 
                 if (loginResponse != null)
                 {
+                    LoggedIn = true;
                     Log.Info("Logged in with {0}...".Args(loginResponse.UserAccounts.UserAccountInfo.Personas.First().PersonaName));
                 }
                 else
                 {
+                    CouldNotLogin = true;
                     Log.Warn("Could not login");
                     RecordExceptionEvent();
                 }
@@ -289,7 +293,7 @@ namespace FUTFlipper
         }
 
         public async void SearchToTransferMoney(int buyAmount)
-        {/*
+        {
             var searchParameters = new StaffSearchParameters
             {
                 Page = 1,
@@ -297,8 +301,8 @@ namespace FUTFlipper
                 MaxBuy = (uint) buyAmount,
                 MinBuy = (uint) buyAmount - 500,
                 PageSize = (byte)(pageSize - 1)
-            };*/
-
+            };
+            /*
             var searchParameters = new ClubInfoSearchParameters
             {
                 ClubInfoType = ClubInfoType.Kit,
@@ -306,7 +310,17 @@ namespace FUTFlipper
                 MaxBuy = (uint)buyAmount,
                 MinBuy = (uint)buyAmount - 500,
                 PageSize = (byte)(pageSize - 1)
-            };
+            };*/
+            /*var searchParameters = new PlayerSearchParameters
+            {
+                Page = 1,
+                Level = Level.Gold,
+                MaxBuy = (uint)buyAmount,
+                MinBuy = (uint)buyAmount - 500,
+                PageSize = (byte)(pageSize - 1),
+                League = League.LigaBbva,
+                Position = Position.RightBack
+            };*/
 
             AuctionResponse searchResponse = await futClient.SearchAsync(searchParameters);
             AuctionInfo item =  searchResponse.AuctionInfo.Where(a => a.SellerName == "Shin Kickers").FirstOrDefault();

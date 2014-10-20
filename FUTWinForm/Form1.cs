@@ -44,7 +44,7 @@ namespace FUTWinForm
 
         private async void watchListButton_Click(object sender, EventArgs e)
         {
-            //await Flipper.Login();
+            if (!Flipper.LoggedIn) await Flipper.Login();
             await Flipper.WatchList();
         }
 
@@ -71,7 +71,7 @@ namespace FUTWinForm
 
         private async void searchAndBuy_Click(object sender, EventArgs e)
         {
-            await Flipper.Login();
+            if (!Flipper.LoggedIn) await Flipper.Login();
             Flipper.SearchToTransferMoney(Int32.Parse(buyAmount.Text));
         }
 
