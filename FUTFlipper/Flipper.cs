@@ -235,7 +235,7 @@ namespace FUTFlipper
                 }
 
                 
-                if (!SlowDay && Page < 100)
+                if (!SlowDay && Page < 150)
                 {
                     slowDayConsectutiveCount++;
                     if (slowDayConsectutiveCount >= 10)
@@ -247,7 +247,7 @@ namespace FUTFlipper
                 {
                     slowDayConsectutiveCount = 0;
                 }
-                if (SlowDay && Page > 130)
+                if (SlowDay && Page > 180)
                 {
                     normalDayConsectutiveCount++;
                     if (normalDayConsectutiveCount >= 10)
