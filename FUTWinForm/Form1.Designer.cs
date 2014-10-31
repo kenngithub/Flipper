@@ -40,15 +40,15 @@
             this.buyAmount = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.unassignedPile = new System.Windows.Forms.Button();
+            this.buyType = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.SearchPage)).BeginInit();
             this.SuspendLayout();
             // 
             // loginButton
             // 
-            this.loginButton.Location = new System.Drawing.Point(17, 16);
-            this.loginButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.loginButton.Location = new System.Drawing.Point(13, 13);
             this.loginButton.Name = "loginButton";
-            this.loginButton.Size = new System.Drawing.Size(100, 28);
+            this.loginButton.Size = new System.Drawing.Size(75, 23);
             this.loginButton.TabIndex = 0;
             this.loginButton.Text = "Login";
             this.loginButton.UseVisualStyleBackColor = true;
@@ -56,10 +56,9 @@
             // 
             // searchButton
             // 
-            this.searchButton.Location = new System.Drawing.Point(17, 53);
-            this.searchButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.searchButton.Location = new System.Drawing.Point(13, 43);
             this.searchButton.Name = "searchButton";
-            this.searchButton.Size = new System.Drawing.Size(100, 28);
+            this.searchButton.Size = new System.Drawing.Size(75, 23);
             this.searchButton.TabIndex = 1;
             this.searchButton.Text = "Search";
             this.searchButton.UseVisualStyleBackColor = true;
@@ -67,10 +66,9 @@
             // 
             // watchListButton
             // 
-            this.watchListButton.Location = new System.Drawing.Point(224, 53);
-            this.watchListButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.watchListButton.Location = new System.Drawing.Point(168, 43);
             this.watchListButton.Name = "watchListButton";
-            this.watchListButton.Size = new System.Drawing.Size(100, 28);
+            this.watchListButton.Size = new System.Drawing.Size(75, 23);
             this.watchListButton.TabIndex = 3;
             this.watchListButton.Text = "WatchList";
             this.watchListButton.UseVisualStyleBackColor = true;
@@ -78,10 +76,9 @@
             // 
             // tradePileButton
             // 
-            this.tradePileButton.Location = new System.Drawing.Point(332, 53);
-            this.tradePileButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tradePileButton.Location = new System.Drawing.Point(249, 43);
             this.tradePileButton.Name = "tradePileButton";
-            this.tradePileButton.Size = new System.Drawing.Size(100, 28);
+            this.tradePileButton.Size = new System.Drawing.Size(75, 23);
             this.tradePileButton.TabIndex = 4;
             this.tradePileButton.Text = "TradePile";
             this.tradePileButton.UseVisualStyleBackColor = true;
@@ -89,10 +86,9 @@
             // 
             // buyButton
             // 
-            this.buyButton.Location = new System.Drawing.Point(17, 90);
-            this.buyButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buyButton.Location = new System.Drawing.Point(13, 73);
             this.buyButton.Name = "buyButton";
-            this.buyButton.Size = new System.Drawing.Size(100, 28);
+            this.buyButton.Size = new System.Drawing.Size(75, 23);
             this.buyButton.TabIndex = 5;
             this.buyButton.Text = "BuyBuyBuy";
             this.buyButton.UseVisualStyleBackColor = true;
@@ -100,8 +96,7 @@
             // 
             // SearchPage
             // 
-            this.SearchPage.Location = new System.Drawing.Point(125, 58);
-            this.SearchPage.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.SearchPage.Location = new System.Drawing.Point(94, 47);
             this.SearchPage.Maximum = new decimal(new int[] {
             2000,
             0,
@@ -113,7 +108,7 @@
             0,
             0});
             this.SearchPage.Name = "SearchPage";
-            this.SearchPage.Size = new System.Drawing.Size(91, 22);
+            this.SearchPage.Size = new System.Drawing.Size(68, 20);
             this.SearchPage.TabIndex = 6;
             this.SearchPage.Value = new decimal(new int[] {
             1,
@@ -133,10 +128,10 @@
             "Ken4",
             "Ken5",
             "Ken6"});
-            this.loginBox.Location = new System.Drawing.Point(125, 16);
-            this.loginBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.loginBox.Location = new System.Drawing.Point(94, 13);
+            this.loginBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.loginBox.Name = "loginBox";
-            this.loginBox.Size = new System.Drawing.Size(121, 24);
+            this.loginBox.Size = new System.Drawing.Size(92, 21);
             this.loginBox.TabIndex = 7;
             this.loginBox.Text = "Ken";
             this.loginBox.SelectedIndexChanged += new System.EventHandler(this.loginBox_SelectedIndexChanged);
@@ -144,10 +139,10 @@
             // slowDay
             // 
             this.slowDay.AutoSize = true;
-            this.slowDay.Location = new System.Drawing.Point(125, 96);
-            this.slowDay.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.slowDay.Location = new System.Drawing.Point(94, 78);
+            this.slowDay.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.slowDay.Name = "slowDay";
-            this.slowDay.Size = new System.Drawing.Size(88, 21);
+            this.slowDay.Size = new System.Drawing.Size(71, 17);
             this.slowDay.TabIndex = 8;
             this.slowDay.Text = "Slow Day";
             this.slowDay.UseVisualStyleBackColor = true;
@@ -155,10 +150,9 @@
             // 
             // searchAndBuy
             // 
-            this.searchAndBuy.Location = new System.Drawing.Point(273, 121);
-            this.searchAndBuy.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.searchAndBuy.Location = new System.Drawing.Point(329, 95);
             this.searchAndBuy.Name = "searchAndBuy";
-            this.searchAndBuy.Size = new System.Drawing.Size(159, 28);
+            this.searchAndBuy.Size = new System.Drawing.Size(119, 23);
             this.searchAndBuy.TabIndex = 9;
             this.searchAndBuy.Text = "Search and Buy";
             this.searchAndBuy.UseVisualStyleBackColor = true;
@@ -166,37 +160,48 @@
             // 
             // buyAmount
             // 
-            this.buyAmount.Location = new System.Drawing.Point(132, 121);
-            this.buyAmount.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buyAmount.Location = new System.Drawing.Point(99, 98);
             this.buyAmount.Name = "buyAmount";
-            this.buyAmount.Size = new System.Drawing.Size(132, 22);
+            this.buyAmount.Size = new System.Drawing.Size(100, 20);
             this.buyAmount.TabIndex = 10;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(32, 124);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(24, 101);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(84, 17);
+            this.label1.Size = new System.Drawing.Size(64, 13);
             this.label1.TabIndex = 11;
             this.label1.Text = "Buy Amount";
             // 
             // unassignedPile
             // 
-            this.unassignedPile.Location = new System.Drawing.Point(439, 53);
+            this.unassignedPile.Location = new System.Drawing.Point(329, 43);
+            this.unassignedPile.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.unassignedPile.Name = "unassignedPile";
-            this.unassignedPile.Size = new System.Drawing.Size(99, 28);
+            this.unassignedPile.Size = new System.Drawing.Size(74, 23);
             this.unassignedPile.TabIndex = 12;
             this.unassignedPile.Text = "Unassigned";
             this.unassignedPile.UseVisualStyleBackColor = true;
             this.unassignedPile.Click += new System.EventHandler(this.unassignedPile_Click);
             // 
+            // buyType
+            // 
+            this.buyType.FormattingEnabled = true;
+            this.buyType.Items.AddRange(new object[] {
+            "Staff",
+            "ClubInfo"});
+            this.buyType.Location = new System.Drawing.Point(205, 98);
+            this.buyType.Name = "buyType";
+            this.buyType.Size = new System.Drawing.Size(118, 21);
+            this.buyType.TabIndex = 13;
+            // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(731, 576);
+            this.ClientSize = new System.Drawing.Size(548, 468);
+            this.Controls.Add(this.buyType);
             this.Controls.Add(this.unassignedPile);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.buyAmount);
@@ -209,7 +214,6 @@
             this.Controls.Add(this.watchListButton);
             this.Controls.Add(this.searchButton);
             this.Controls.Add(this.loginButton);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Form1";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.SearchPage)).EndInit();
@@ -232,6 +236,7 @@
         private System.Windows.Forms.TextBox buyAmount;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button unassignedPile;
+        private System.Windows.Forms.ComboBox buyType;
     }
 }
 

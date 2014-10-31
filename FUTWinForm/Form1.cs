@@ -16,69 +16,79 @@ namespace FUTWinForm
     public partial class Form1 : Form
     {
 
-        private Flipper Flipper { get; set; }
+        private Dictionary<string, Flipper> Flippers { get; set; }
+        private string currentAccount;
         public Form1()
         {
             InitializeComponent();
-            Flipper = new Flipper();
+            Flipper startingFlipper = new Flipper();
 
             loginBox.Items.Clear();
-            loginBox.Items.AddRange(Flipper.GetAccountNames().ToArray());
+            loginBox.Items.AddRange(startingFlipper.GetAccountNames().ToArray());
+
+            Flippers = startingFlipper.GetAccountNames().ToDictionary(a => a, a =>
+                {
+                    Flipper f = new Flipper();
+                    f.ChangeAccount(a);
+                    return f;
+                });
 
             if (loginBox.Items.Count > 0)
             {
                 loginBox.SelectedIndex = 0;
-                Flipper.ChangeAccount(loginBox.Items[0].ToString());
+                currentAccount = loginBox.Items[0].ToString();
             }
+            buyType.SelectedIndex = 0;
         }
 
         private async void loginButton_Click(object sender, EventArgs e)
         {
-            await Flipper.Login();
+            await Flippers[currentAccount].Login();
         }
 
         private async void searchButton_Click(object sender, EventArgs e)
         {
-            await Flipper.PlayerForQuickSellSearch((uint) SearchPage.Value);
+            await Flippers[currentAccount].PlayerForQuickSellSearch((uint)SearchPage.Value);
         }
 
         private async void watchListButton_Click(object sender, EventArgs e)
         {
-            if (!Flipper.LoggedIn) await Flipper.Login();
-            await Flipper.WatchList();
+            if (!Flippers[currentAccount].LoggedIn) await Flippers[currentAccount].Login();
+            await Flippers[currentAccount].WatchList();
         }
 
         private async void tradePileButton_Click(object sender, EventArgs e)
         {
-            await Flipper.TradePile();
+            await Flippers[currentAccount].TradePile();
         }
 
         private async void buyButton_Click(object sender, EventArgs e)
         {
-            await Flipper.BuyBuyBuy((uint)SearchPage.Value);
+            await Flippers[currentAccount].BuyBuyBuy((uint)SearchPage.Value);
         }
 
         private void loginBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string account = loginBox.SelectedItem.ToString();
-            Flipper.ChangeAccount(account);
+            currentAccount = loginBox.SelectedItem.ToString();
+            Flippers[currentAccount].ChangeAccount(currentAccount);
         }
 
         private void slowDay_CheckedChanged(object sender, EventArgs e)
         {
-            Flipper.SlowDay = slowDay.Checked;
+            Flippers[currentAccount].SlowDay = slowDay.Checked;
         }
 
         private async void searchAndBuy_Click(object sender, EventArgs e)
         {
-            if (!Flipper.LoggedIn) await Flipper.Login();
-            Flipper.SearchToTransferMoney(Int32.Parse(buyAmount.Text));
+            if (!Flippers[currentAccount].LoggedIn) await Flippers[currentAccount].Login();
+            if (!Flippers[currentAccount].LoggedIn) return;
+            Flippers[currentAccount].SearchToTransferMoney(Int32.Parse(buyAmount.Text), buyType.SelectedItem.ToString());
         }
 
         private async void unassignedPile_Click(object sender, EventArgs e)
         {
-            await Flipper.Login();
-            await Flipper.UnnassignedPile();
+            await Flippers[currentAccount].Login();
+            await Flippers[currentAccount].UnnassignedPile();
         }
     }
 }

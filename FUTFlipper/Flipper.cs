@@ -292,35 +292,46 @@ namespace FUTFlipper
             return Math.Abs(time - 3600) > 120;
         }
 
-        public async void SearchToTransferMoney(int buyAmount)
+        public async void SearchToTransferMoney(int buyAmount, string buyType)
         {
-            var searchParameters = new StaffSearchParameters
+
+            SearchParameters searchParameters;
+
+            switch (buyType)
             {
-                Page = 1,
-                Level = Level.Gold,
-                MaxBuy = (uint) buyAmount,
-                MinBuy = (uint) buyAmount - 500,
-                PageSize = (byte)(pageSize - 1)
-            };
-            /*
-            var searchParameters = new ClubInfoSearchParameters
-            {
-                ClubInfoType = ClubInfoType.Kit,
-                Page = 1,
-                MaxBuy = (uint)buyAmount,
-                MinBuy = (uint)buyAmount - 500,
-                PageSize = (byte)(pageSize - 1)
-            };*/
-            /*var searchParameters = new PlayerSearchParameters
-            {
-                Page = 1,
-                Level = Level.Gold,
-                MaxBuy = (uint)buyAmount,
-                MinBuy = (uint)buyAmount - 500,
-                PageSize = (byte)(pageSize - 1),
-                League = League.LigaBbva,
-                Position = Position.RightBack
-            };*/
+                case "Staff":
+                    searchParameters = new StaffSearchParameters
+                    {
+                        Page = 1,
+                        Level = Level.Gold,
+                        MaxBuy = (uint)buyAmount,
+                        MinBuy = (uint)(buyAmount - CalculateBidIncrement(buyAmount)),
+                        PageSize = (byte)(pageSize - 1)
+                    };
+                    break;
+                case "ClubInfo":
+                    searchParameters = new ClubInfoSearchParameters
+                    {
+                        ClubInfoType = ClubInfoType.Kit,
+                        Page = 1,
+                        MaxBuy = (uint)buyAmount,
+                        MinBuy = (uint)(buyAmount - CalculateBidIncrement(buyAmount)),
+                        PageSize = (byte)(pageSize - 1)
+                    };
+                    break;
+                default:
+                    searchParameters = new PlayerSearchParameters
+                    {
+                        Page = 1,
+                        Level = Level.Gold,
+                        MaxBuy = (uint)buyAmount,
+                        MinBuy = (uint)(buyAmount - CalculateBidIncrement(buyAmount)),
+                        PageSize = (byte)(pageSize - 1),
+                        League = League.LigaBbva,
+                        Position = Position.RightBack
+                    };
+                    break;
+            }
 
             AuctionResponse searchResponse = await futClient.SearchAsync(searchParameters);
             AuctionInfo item =  searchResponse.AuctionInfo.Where(a => a.SellerName == "Shin Kickers").FirstOrDefault();
@@ -333,6 +344,23 @@ namespace FUTFlipper
                 BuyNow(item);
                 Log.Info("Buying item {0} from {1} for {2}".Args(item.ItemData.Id, item.SellerName, item.BuyNowPrice));
             }
+        }
+
+        private int CalculateBidIncrement(int bid)
+        {
+            if (bid < 1000)
+                return 50;
+
+            if (bid < 10000)
+                return 100;
+
+            if (bid < 50000)
+                return 250;
+
+            if (bid < 100000)
+                return 500;
+
+            return 1000;
         }
 
         private async void BuyNow(AuctionInfo item)
