@@ -534,7 +534,7 @@ namespace FUTFlipper
                         if (won.Any())
                         {
                             Log.Info(Credits + " Quick selling");
-                            IEnumerable<Task<QuickSellResponse>> quickSellTasks = won.Select(w =>
+                            IEnumerable<Task<QuickSellResponse>> quickSellTasks = won.OrderBy(w => w.ItemData.Id).Select(w =>
                             {
                                 Log.Info("Quick selling {0}, rating {1} for {2} credits".Args(w.ItemData.Id, w.ItemData.Rating, w.ItemData.DiscardValue.ToString()));
                                 HumanDelay();
