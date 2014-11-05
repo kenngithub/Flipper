@@ -45,6 +45,7 @@ namespace FUTFlipper
         public bool SlowDay { get; set; }
         public bool CouldNotLogin { get; set; }
         public bool LoggedIn { get; set; }
+        public List<long> UnsellableItemsCaptured { get; set; }
 
         private SpreadsheetsService gDocsService;
         private ListFeed listFeed;
@@ -71,6 +72,7 @@ namespace FUTFlipper
             Page = 1;
             SlowDay = false;
             LoggedIn = false;
+            UnsellableItemsCaptured = new List<long>();
 
             gDocsService = new SpreadsheetsService("Ken Nguyen gDoc Service");
             gDocsService.setUserCredentials("nguyen.kirk@gmail.com", "ilovedaddy");
@@ -499,7 +501,11 @@ namespace FUTFlipper
                     Credits = searchResponse.Credits;
                     if (searchResponse.AuctionInfo.Any())
                     {
-                        var watchingSorted = searchResponse.AuctionInfo.Where(co => !loginDetails[Account].UnsellableItems.Contains(co.ItemData.Id)).OrderBy(ai => ai.Expires);
+                        var watchingSorted = searchResponse.AuctionInfo.Where(co => !loginDetails[Account].UnsellableItems.Contains(co.ItemData.Id) && !UnsellableItemsCaptured.Contains(co.ItemData.Id)).OrderBy(ai => ai.Expires);
+                        if (UnsellableItemsCaptured.Any())
+                        {
+                            Log.Info("Ignoring unsellable items: {0}".Args(String.Join("|", UnsellableItemsCaptured.Select(i => { return i.ToString(); }))));
+                        }
                         var nonExpired = watchingSorted.Where(w => w.Expires > 0);
                         if (nonExpired.Any())
                         {
@@ -534,15 +540,23 @@ namespace FUTFlipper
                         if (won.Any())
                         {
                             Log.Info(Credits + " Quick selling");
-                            IEnumerable<Task<QuickSellResponse>> quickSellTasks = won.OrderBy(w => w.ItemData.Id).Select(w =>
+                            var newCredits = Credits;
+                            foreach (var w in won.OrderBy(w => w.ItemData.Id))
                             {
-                                Log.Info("Quick selling {0}, rating {1} for {2} credits".Args(w.ItemData.Id, w.ItemData.Rating, w.ItemData.DiscardValue.ToString()));
-                                HumanDelay();
-                                return futClient.QuickSellItemAsync(w.ItemData.Id);
-                            });
+                                try
+                                {
+                                    Log.Info("Quick selling {0}, rating {1} for {2} credits".Args(w.ItemData.Id, w.ItemData.Rating, w.ItemData.DiscardValue.ToString()));
+                                    HumanDelay(2);
+                                    var quickSellResponse = await futClient.QuickSellItemAsync(w.ItemData.Id);
+                                    newCredits = (uint)quickSellResponse.TotalCredits;
+                                }
+                                catch (Exception ex)
+                                {
+                                    UnsellableItemsCaptured.Add(w.ItemData.Id);
+                                    Log.Error("Error trying to quick sell item {0}: {1}".Args(w.ItemData.Id, ex.Message));
+                                }
+                            }
 
-                            var quickSellResponses = await Task.WhenAll(quickSellTasks);
-                            var newCredits = (uint)quickSellResponses.Max(r => r.TotalCredits);
                             var soldFor = newCredits - Credits;
                             Credits = newCredits;
                             Log.Info(Credits + " Finished quick selling for total of {0}.".Args(soldFor));
@@ -711,7 +725,7 @@ namespace FUTFlipper
 
         private void HumanDelay(int weight = 1)
         {
-            System.Threading.Thread.Sleep(random.Next(1500, 2000) * weight);
+            System.Threading.Thread.Sleep(random.Next(2000, 2500) * weight);
         }
 
         private uint BidAmountJustUnder(uint value)
