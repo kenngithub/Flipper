@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using ForAspNet.POP3;
 using UltimateTeam.Toolkit;
@@ -12,6 +13,7 @@ namespace FUTFlipper
     {
         public string Username { get; set; }
         public string Password { get; set; }
+        private Regex codeRegex = new Regex(@"\<strong\>Your Origin Security Code: \</strong\>.*\<strong\>(?<code>\d\d\d\d\d\d)\</strong\>", RegexOptions.Singleline | RegexOptions.IgnoreCase);
 
         public TwoFactorCodeProvider(string username, string password)
         {
@@ -38,12 +40,22 @@ namespace FUTFlipper
                     if (!pop.Login()) return "Can't login";
                 }
                 pop.QueryServer();
+                string code = "Can't find code";
                 for (var i = pop.TotalMailCount; i > 0; i--)
                 {
                     var msg = pop.GetMessage(i, false);
+                    if (msg.Subject == "Your Origin Security Code")
+                    {
+                        var body = msg.ToString();
+                        var match = codeRegex.Match(body);
+                        if (match.Success)
+                        {
+                            code = match.Groups["code"].Value;
+                        }
+                    }
 
                 }
-                return "bla";
+                return code;
             });
 
             return task;
