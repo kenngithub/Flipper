@@ -41,6 +41,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.unassignedPile = new System.Windows.Forms.Button();
             this.buyType = new System.Windows.Forms.ComboBox();
+            this.getCodeButton = new System.Windows.Forms.Button();
+            this.codeTextBox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.SearchPage)).BeginInit();
             this.SuspendLayout();
             // 
@@ -129,7 +131,7 @@
             "Ken5",
             "Ken6"});
             this.loginBox.Location = new System.Drawing.Point(94, 13);
-            this.loginBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.loginBox.Margin = new System.Windows.Forms.Padding(2);
             this.loginBox.Name = "loginBox";
             this.loginBox.Size = new System.Drawing.Size(92, 21);
             this.loginBox.TabIndex = 7;
@@ -140,7 +142,7 @@
             // 
             this.slowDay.AutoSize = true;
             this.slowDay.Location = new System.Drawing.Point(94, 78);
-            this.slowDay.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.slowDay.Margin = new System.Windows.Forms.Padding(2);
             this.slowDay.Name = "slowDay";
             this.slowDay.Size = new System.Drawing.Size(71, 17);
             this.slowDay.TabIndex = 8;
@@ -177,7 +179,7 @@
             // unassignedPile
             // 
             this.unassignedPile.Location = new System.Drawing.Point(329, 43);
-            this.unassignedPile.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.unassignedPile.Margin = new System.Windows.Forms.Padding(2);
             this.unassignedPile.Name = "unassignedPile";
             this.unassignedPile.Size = new System.Drawing.Size(74, 23);
             this.unassignedPile.TabIndex = 12;
@@ -196,11 +198,30 @@
             this.buyType.Size = new System.Drawing.Size(118, 21);
             this.buyType.TabIndex = 13;
             // 
+            // getCodeButton
+            // 
+            this.getCodeButton.Location = new System.Drawing.Point(192, 13);
+            this.getCodeButton.Name = "getCodeButton";
+            this.getCodeButton.Size = new System.Drawing.Size(75, 23);
+            this.getCodeButton.TabIndex = 14;
+            this.getCodeButton.Text = "Get Code";
+            this.getCodeButton.UseVisualStyleBackColor = true;
+            this.getCodeButton.Click += new System.EventHandler(this.getCodeButton_Click);
+            // 
+            // codeTextBox
+            // 
+            this.codeTextBox.Location = new System.Drawing.Point(274, 13);
+            this.codeTextBox.Name = "codeTextBox";
+            this.codeTextBox.Size = new System.Drawing.Size(262, 20);
+            this.codeTextBox.TabIndex = 15;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(548, 468);
+            this.Controls.Add(this.codeTextBox);
+            this.Controls.Add(this.getCodeButton);
             this.Controls.Add(this.buyType);
             this.Controls.Add(this.unassignedPile);
             this.Controls.Add(this.label1);
@@ -237,6 +258,8 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button unassignedPile;
         private System.Windows.Forms.ComboBox buyType;
+        private System.Windows.Forms.Button getCodeButton;
+        private System.Windows.Forms.TextBox codeTextBox;
     }
 }
 

@@ -129,7 +129,7 @@ namespace FUTFlipper
                 CouldNotLogin = false;
                 Log.Info("Logging in with {0}...".Args(loginDetails[Account].LoginDetails.Username));
                 futClient = new FutClient();
-                var loginResponse = await futClient.LoginAsync(loginDetails[Account].LoginDetails);
+                var loginResponse = await futClient.LoginAsync(loginDetails[Account].LoginDetails, new TwoFactorCodeProvider(loginDetails[Account].LoginDetails.Username, loginDetails[Account].LoginDetails.Password));
                 SetupGoogle();
 
                 if (loginResponse != null)
@@ -314,7 +314,7 @@ namespace FUTFlipper
                 case "ClubInfo":
                     searchParameters = new ClubInfoSearchParameters
                     {
-                        ClubInfoType = ClubInfoType.Kit,
+                        ClubInfoType = ClubInfoType.Badge,
                         Page = 1,
                         MaxBuy = (uint)buyAmount,
                         MinBuy = (uint)(buyAmount - CalculateBidIncrement(buyAmount)),
@@ -834,6 +834,13 @@ namespace FUTFlipper
         private bool TooManyExceptions()
         {
             return ExceptionsEventDuringWindow > ExceptionEventThreshold;
+        }
+
+        public Task<string> GetTwoFactorCode()
+        {
+            var twoFactorCodeProvider = new TwoFactorCodeProvider(loginDetails[Account].LoginDetails.Username, loginDetails[Account].LoginDetails.Password);
+            return twoFactorCodeProvider.GetTwoFactorCodeAsync();
+
         }
     }
 

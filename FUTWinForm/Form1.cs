@@ -90,5 +90,10 @@ namespace FUTWinForm
             await Flippers[currentAccount].Login();
             await Flippers[currentAccount].UnnassignedPile();
         }
+
+        private async void getCodeButton_Click(object sender, EventArgs e)
+        {
+            codeTextBox.Text = await Flippers[currentAccount].GetTwoFactorCode();
+        }
     }
 }
