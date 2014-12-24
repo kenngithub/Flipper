@@ -93,7 +93,8 @@ namespace FUTWinForm
 
         private async void getCodeButton_Click(object sender, EventArgs e)
         {
-            codeTextBox.Text = await Flippers[currentAccount].GetTwoFactorCode();
+            string code = await Flippers[currentAccount].GetTwoFactorCode();
+            codeTextBox.Text = code ?? "Can't find code";
         }
     }
 }

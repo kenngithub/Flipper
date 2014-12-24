@@ -129,7 +129,7 @@ namespace FUTFlipper
                 CouldNotLogin = false;
                 Log.Info("Logging in with {0}...".Args(loginDetails[Account].LoginDetails.Username));
                 futClient = new FutClient();
-                var loginResponse = await futClient.LoginAsync(loginDetails[Account].LoginDetails, new TwoFactorCodeProvider(loginDetails[Account].LoginDetails.Username, loginDetails[Account].LoginDetails.Password));
+                var loginResponse = await futClient.LoginAsync(loginDetails[Account].LoginDetails, new TwoFactorCodeProvider(loginDetails[Account].LoginDetails.Username, loginDetails[Account].LoginDetails.Password, Log));
                 SetupGoogle();
 
                 if (loginResponse != null)
@@ -838,7 +838,7 @@ namespace FUTFlipper
 
         public Task<string> GetTwoFactorCode()
         {
-            var twoFactorCodeProvider = new TwoFactorCodeProvider(loginDetails[Account].LoginDetails.Username, loginDetails[Account].LoginDetails.Password);
+            var twoFactorCodeProvider = new TwoFactorCodeProvider(loginDetails[Account].LoginDetails.Username, loginDetails[Account].LoginDetails.Password, Log);
             return twoFactorCodeProvider.GetTwoFactorCodeAsync();
 
         }
