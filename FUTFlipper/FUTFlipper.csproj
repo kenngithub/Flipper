@@ -56,15 +56,16 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="UltimateTeam.Toolkit, Version=0.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="UltimateTeam.Toolkit, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>References\UltimateTeam.Toolkit.dll</HintPath>
+      <HintPath>..\packages\UltimateTeam.2015.Toolkit.1.0.0.0\lib\portable-net45+win+wpa81\UltimateTeam.Toolkit.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Flipper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TwoFactorCodeProvider.cs" />
+    <Compile Include="TwoFactorCodeEmailProvider.cs" />
+    <Compile Include="TwoFactorCodeStaticProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="accounts.config">
